@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply - Internship Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Apply for Internship/Job</h1>
+    <p>Fill in your details to submit your application</p>
+  </header>
+
+  <main>
+    <form class="job-card" id="applyForm">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="jobTitle">Job/Internship Title</label>
+      <input type="text" id="jobTitle" name="jobTitle" placeholder="e.g. Frontend Developer Intern" required>
+
+      <label for="cv">CV/Resume Link</label>
+      <input type="url" id="cv" name="cv" placeholder="Paste a link to your CV (Google Drive, etc.)" required>
+
+      <label for="coverNote">Cover Note</label>
+      <textarea id="coverNote" name="coverNote" rows="4" placeholder="Briefly tell us why you're a good fit..."></textarea>
+
+      <button type="submit">Submit Application</button>
+    </form>
+  </main>
+
+</body>
+</html>
