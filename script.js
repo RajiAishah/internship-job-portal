@@ -41,6 +41,14 @@ const registerForm = document.getElementById("registerForm");
 if (registerForm) {
   registerForm.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    const password = document.getElementById("password").value;
+
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long.");
+      return;
+    }
+
     alert("Account created successfully! (This is a demo — no server connected yet.)");
     registerForm.reset();
   });
