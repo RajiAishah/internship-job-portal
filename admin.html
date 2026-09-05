@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Post a Job</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Employer / Admin Portal</h1>
+    <p>Post new internship and job opportunities</p>
+  </header>
+
+  <main>
+    <form id="jobPostForm" class="job-card">
+      <h2>Add New Job Listing</h2>
+      
+      <label for="jobTitle">Job Title</label>
+      <input type="text" id="jobTitle" placeholder="e.g., Data Analyst Intern" required />
+
+      <label for="companyName">Company Name</label>
+      <input type="text" id="companyName" placeholder="e.g., TechCorp" required />
+
+      <label for="jobLocation">Location</label>
+      <input type="text" id="jobLocation" placeholder="e.g., Lagos / Remote" required />
+
+      <button type="submit">Post Job</button>
+    </form>
+    
+    <p style="margin-top: 15px; font-size: 14px;">
+      <a href="index.html">← Back to Job Listings</a>
+    </p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
