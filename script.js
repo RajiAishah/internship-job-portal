@@ -173,3 +173,191 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+document.getElementById('applyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const jobTitle = document.getElementById('jobTitle').value;
+    const coverNote = document.getElementById('coverNote').value;
+    const fileInput = document.getElementById('cvFile');
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        
+        reader.onload = function(event) {
+            const base64File = event.target.result;
+
+            const applicationData = {
+                fullName: fullName,
+                email: email,
+                jobTitle: jobTitle,
+                cvName: file.name,
+                cvData: base64File,
+                coverNote: coverNote,
+                date: new Date().toLocaleDateString()
+            };
+
+            // Save to localStorage
+            let applications = JSON.parse(localStorage.getItem('applications')) || [];
+            applications.push(applicationData);
+            localStorage.setItem('applications', JSON.stringify(applications));
+
+            alert('Application submitted successfully!');
+            document.getElementById('applyForm').reset();
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        alert('Please upload your CV document.');
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const applicationsList = document.getElementById('applicationsList');
+    
+    if (applicationsList) {
+        const applications = JSON.parse(localStorage.getItem('applications')) || [];
+
+        if (applications.length === 0) {
+            applicationsList.innerHTML = '<p>No applications submitted yet.</p>';
+            return;
+        }
+
+        let html = '';
+        applications.forEach((app) => {
+            html += `
+                <div class="application-card" style="border: 1px solid #ccc; padding: 15px; margin-top: 10px; border-radius: 5px; background: #fff;">
+                    <h3>${app.fullName}</h3>
+                    <p><strong>Email:</strong> ${app.email}</p>
+                    <p><strong>Job Title:</strong> ${app.jobTitle}</p>
+                    <p><strong>Date:</strong> ${app.date}</p>
+                    <p><strong>Cover Note:</strong> ${app.coverNote}</p>
+                    <p><strong>CV File:</strong> <a href="${app.cvData}" download="${app.cvName}">${app.cvName} (Download)</a></p>
+                </div>
+            `;
+        });
+
+        applicationsList.innerHTML = html;
+    }
+});
+// --- HANDLE STUDENT APPLICATION SUBMISSION ---
+const applyForm = document.getElementById("applyForm");
+if (applyForm) {
+    applyForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const fullName = document.getElementById("fullName").value;
+        const email = document.getElementById("email").value;
+        const jobTitle = document.getElementById("jobTitle").value;
+        const coverNote = document.getElementById("coverNote").value;
+        const cvFile = document.getElementById("cvFile").files[0];
+
+        if (!fullName || !email || !jobTitle || !cvFile) {
+            alert("Please fill in all required fields and upload your CV.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const cvData = event.target.result; // Base64 string of the file
+            const cvName = cvFile.name;
+            const date = new Date().toLocaleDateString();
+
+            const newApplication = {
+                fullName,
+                email,
+                jobTitle,
+                coverNote,
+                cvData,
+                cvName,
+                date
+            };
+
+            const existingApplications = JSON.parse(localStorage.getItem("applications")) || [];
+            existingApplications.push(newApplication);
+            localStorage.setItem("applications", JSON.stringify(existingApplications));
+
+            alert("Application submitted successfully!");
+            applyForm.reset();
+            window.location.href = "index.html";
+        };
+
+        reader.readAsDataURL(cvFile);
+    });
+}
+// --- HANDLE STUDENT APPLICATION SUBMISSION ---
+document.addEventListener("DOMContentLoaded", function () {
+    const applyForm = document.getElementById("applyForm");
+    
+    if (applyForm) {
+        applyForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById("fullName").value;
+            const email = document.getElementById("email").value;
+            const jobTitle = document.getElementById("jobTitle").value;
+            const coverNote = document.getElementById("coverNote").value;
+            const cvFileInput = document.getElementById("cvFile");
+
+            if (!fullName || !email || !jobTitle || cvFileInput.files.length === 0) {
+                alert("Please fill in all required fields and upload your CV.");
+                return;
+            }
+
+            const cvFile = cvFileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                const cvData = event.target.result;
+                const cvName = cvFile.name;
+                const date = new Date().toLocaleDateString();
+
+                const newApplication = {
+                    fullName,
+                    email,
+                    jobTitle,
+                    coverNote,
+                    cvData,
+                    cvName,
+                    date
+                };
+
+                const existingApplications = JSON.parse(localStorage.getItem("applications")) || [];
+                existingApplications.push(newApplication);
+                localStorage.setItem("applications", JSON.stringify(existingApplications));
+
+                alert("Application submitted successfully!");
+                applyForm.reset();
+                window.location.href = "admin.html"; // Redirects straight to admin dashboard to see it!
+            };
+
+            reader.readAsDataURL(cvFile);
+        });
+    }
+});
+// --- 7. RENDER STUDENT APPLICATIONS ---
+document.addEventListener("DOMContentLoaded", () => {
+    const applicationsList = document.getElementById("applicationsList");
+    if (!applicationsList) return;
+
+    const applications = JSON.parse(localStorage.getItem("applications")) || [];
+
+    if (applications.length === 0) {
+        applicationsList.innerHTML = "<p>No applications submitted yet.</p>";
+        return;
+    }
+
+    let html = "";
+    applications.forEach((app) => {
+        html += `
+            <div class="job-card" style="margin-bottom: 15px; background: #fff; padding: 15px; border-radius: 5px;">
+                <h3>${app.fullName || "Applicant"}</h3>
+                <p><strong>Email:</strong> ${app.email}</p>
+                <p><strong>Job Title:</strong> ${app.jobTitle}</p>
+                <p><strong>Cover Note:</strong> ${app.coverNote}</p>
+            </div>
+        `;
+    });
+    applicationsList.innerHTML = html;
+});
